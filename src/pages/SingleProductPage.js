@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { useProductsContext } from "../context/products_context";
-import { single_product_url as url } from "../utils/constants";
-import { formatPrice } from "../utils/helpers";
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useProductsContext } from '../context/products_context';
+import { single_product_url as url } from '../utils/constants';
+import { formatPrice } from '../utils/helpers';
 import {
   Loading,
   Error,
@@ -10,13 +10,12 @@ import {
   AddToCart,
   Stars,
   PageHero,
-} from "../components";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-
+} from '../components';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 const SingleProductPage = () => {
-  const history = useHistory();
   const { id } = useParams();
+  const navigate = useNavigate();
   const {
     single_product_loading: loading,
     single_product_error: error,
@@ -26,22 +25,23 @@ const SingleProductPage = () => {
 
   useEffect(() => {
     fetchSingleProduct(`${url}${id}`);
+    // eslint-disable-next-line
   }, [id]);
-
   useEffect(() => {
     if (error) {
       setTimeout(() => {
-        history.push("/");
+        navigate('/');
       }, 3000);
     }
+    // eslint-disable-next-line
   }, [error]);
-
   if (loading) {
     return <Loading />;
   }
   if (error) {
     return <Error />;
   }
+
   const {
     name,
     price,
@@ -56,27 +56,27 @@ const SingleProductPage = () => {
   return (
     <Wrapper>
       <PageHero title={name} product />
-      <div className="section section-center PageHero">
-        <Link className="btn" to="/products">
+      <div className='section section-center page'>
+        <Link to='/products' className='btn'>
           back to products
         </Link>
-        <div className="product-center">
+        <div className='product-center'>
           <ProductImages images={images} />
-          <section className="content">
+          <section className='content'>
             <h2>{name}</h2>
             <Stars stars={stars} reviews={reviews} />
-            <h5 className="price">{formatPrice(price)}</h5>
-            <p className="desc">{description}</p>
-            <p className="info">
+            <h5 className='price'>{formatPrice(price)}</h5>
+            <p className='desc'>{description}</p>
+            <p className='info'>
               <span>Available : </span>
-              {stock > 0 ? "In stock" : "out of stock"}
+              {stock > 0 ? 'In stock' : 'out of stock'}
             </p>
-            <p className="info">
-              <span>SKU : </span>
+            <p className='info'>
+              <span>SKU :</span>
               {sku}
             </p>
-            <p className="info">
-              <span>Brand : </span>
+            <p className='info'>
+              <span>Brand :</span>
               {company}
             </p>
             <hr />

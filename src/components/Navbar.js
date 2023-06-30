@@ -1,22 +1,37 @@
-import React from "react";
-import styled from "styled-components";
-import logo from "../assets/logo.svg";
-import { FaBars } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { links } from "../utils/constants";
-import CartButtons from "./CartButtons";
-import { useProductsContext } from "../context/products_context";
-import { useUserContext } from "../context/user_context";
+import React from 'react'
+import styled from 'styled-components'
 
+import { FaBars } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { links } from '../utils/constants'
+import CartButtons from './CartButtons'
+import { useProductsContext } from '../context/products_context'
+import { useUserContext } from '../context/user_context'
 const Nav = () => {
   const { openSidebar } = useProductsContext()
-  const {myUser} = useUserContext()
+  const { myUser } = useUserContext()
   return (
     <NavContainer>
       <div className="nav-center">
         <div className="nav-header">
           <Link to="/">
-            <img src={logo} alt="comfy sloth" />
+            <h5
+              style={{
+                border: "2px solid black",
+                borderRadius: "10px",
+                padding: "5px",
+                transition: "box-shadow 0.3s",
+                boxShadow: "none",
+                display: "inline-block",
+              }}
+              onMouseOver={(e) => {
+                e.target.style.boxShadow = "2px 2px 5px rgba(0, 0, 0, 0.3)";
+              }}
+              onMouseOut={(e) => {
+                e.target.style.boxShadow = "none";
+              }}>
+              Comfort Store
+            </h5>
           </Link>
           <button type="button" className="nav-toggle" onClick={openSidebar}>
             <FaBars />
@@ -31,17 +46,17 @@ const Nav = () => {
               </li>
             );
           })}
-          {
-            myUser && <li>
-              <Link to='/checkout'>checkout</Link>
+          {myUser && (
+            <li>
+              <Link to="/checkout">checkout</Link>
             </li>
-          }
+          )}
         </ul>
         <CartButtons />
       </div>
     </NavContainer>
   );
-};
+}
 
 const NavContainer = styled.nav`
   height: 5rem;
@@ -108,6 +123,6 @@ const NavContainer = styled.nav`
       display: grid;
     }
   }
-`;
+`
 
-export default Nav;
+export default Nav
