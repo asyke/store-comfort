@@ -24,7 +24,7 @@ const SingleProductPage = () => {
   } = useProductsContext();
 
   useEffect(() => {
-    fetchSingleProduct(`/api/react-store-single-product?id=${id}`);
+    fetchSingleProduct(`/react-store-single-product?id=${id}`);
     // eslint-disable-next-line
   }, [id]);
   useEffect(() => {
