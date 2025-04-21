@@ -29,8 +29,10 @@ const products_reducer = (state, action) => {
       products_loading: false,
       products: action.payload,
       featured_products,
+      filtered_products: action.payload, // ✅ ADD THIS LINE
     }
   }
+  
   if (action.type === GET_PRODUCTS_ERROR) {
     return { ...state, products_loading: false, products_error: true }
   }
